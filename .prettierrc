@@ -1,0 +1,4 @@
+{
+  "printWidth": 500, //每行最多多少个字符换行,
+  "endOfLine": "lf"
+}
