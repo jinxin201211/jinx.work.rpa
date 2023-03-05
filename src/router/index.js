@@ -14,6 +14,36 @@ const routes = [
       keepAlive: true,
     },
   },
+  ,
+  {
+    path: "/course",
+    name: "Course",
+    component: () => import("../views/public/Course/Index.vue"),
+    meta: {
+      keepAlive: true,
+      menu: "course",
+    },
+  },
+  ,
+  {
+    path: "/class",
+    name: "Class",
+    component: () => import("../views/public/Class/Index.vue"),
+    meta: {
+      keepAlive: true,
+      menu: "class",
+    },
+  },
+  ,
+  {
+    path: "/helpcenter",
+    name: "HelpCenter",
+    component: () => import("../views/public/HelpCenter/Index.vue"),
+    meta: {
+      keepAlive: true,
+      menu: "helpcenter",
+    },
+  },
 ];
 
 export const router = createRouter({

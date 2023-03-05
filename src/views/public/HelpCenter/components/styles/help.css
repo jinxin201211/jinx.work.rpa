@@ -1,0 +1,27 @@
+.jinx-help-article {
+  width: 100%;
+
+}
+
+.jinx-help-article img {
+  max-width: 100%;
+  border: 1px solid var(--border-color);
+}
+
+.table-box {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+.table th,
+.table td {
+  text-align: center;
+  border: 1px solid #ccc;
+  padding: 3px;
+}
