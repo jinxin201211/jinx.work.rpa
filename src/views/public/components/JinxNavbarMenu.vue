@@ -2,7 +2,7 @@
   <div class="jinx-navbar">
     <div class="jinx-navbar-menu">
       <ul class="jinx-menu" style="flex: 1">
-        <li class="jinx-menu-item" :class="{ hover: hover === 'course' }" @click="$router.push('/course')">
+        <li class="jinx-menu-item" :class="{ hover: hover === 'courselist' }" @click="$router.push('/courselist')">
           <span>课程</span>
         </li>
         <li class="jinx-menu-item" :class="{ hover: hover === 'class' }" @click="$router.push('/class')">
@@ -83,10 +83,15 @@ const refresh = () => {};
         cursor: pointer;
         z-index: 999;
         position: relative;
+        font-size: 18px;
 
         span {
           transition: border-color 0.3s, background-color 0.3s, color 0.3s;
         }
+      }
+
+      .jinx-menu-item:first-child {
+        margin-left: 0;
       }
 
       .jinx-menu-item::after {
@@ -138,6 +143,10 @@ const refresh = () => {};
         span {
           transition: border-color 0.3s, background-color 0.3s, color 0.3s;
         }
+      }
+
+      .jinx-navbar-item:last-child {
+        margin-right: 0;
       }
 
       .jinx-navbar-item.hover,

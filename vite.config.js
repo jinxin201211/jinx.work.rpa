@@ -23,10 +23,10 @@ export default defineConfig({
     }),
     // Element-Plus按需导入
     AutoImport({
-      resolvers: [ElementPlusResolver()],
+      resolvers: [ElementPlusResolver({ importStyle: "sass" })],
     }),
     Components({
-      resolvers: [ElementPlusResolver()],
+      resolvers: [ElementPlusResolver({ importStyle: "sass" })],
     }),
   ],
   resolve: {
@@ -41,6 +41,10 @@ export default defineConfig({
       less: {
         charset: false,
         additionalData: '@import "./src/styles/global.less";',
+      },
+      scss: {
+        //自定义的ElementPlus主题文件
+        additionalData: `@use "@/styles/global.scss" as *;`,
       },
     },
   },

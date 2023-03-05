@@ -2,9 +2,6 @@
   <div class="jinx-layout" :class="{ wide: wide }">
     <jinx-navbar-menu></jinx-navbar-menu>
     <div class="jinx-layout-center">
-      <div class="jinx-layout-sidebar" v-if="!noside">
-        <slot name="sidebar"></slot>
-      </div>
       <div class="jinx-layout-body">
         <slot></slot>
       </div>
@@ -33,13 +30,13 @@ const props = defineProps({
 .jinx-layout {
   display: flex;
   flex-direction: column;
-  height: 100%;
+  min-height: 100%;
   min-width: @typical-width;
   overflow: hidden;
 
   .jinx-layout-center {
     flex: 1;
-    overflow: hidden;
+    // overflow: hidden;
     display: flex;
     width: @typical-width;
     margin: 0 auto;
@@ -50,7 +47,7 @@ const props = defineProps({
     }
     .jinx-layout-body {
       flex: 1;
-      overflow-y: auto;
+      // overflow-y: auto;
     }
   }
 }
