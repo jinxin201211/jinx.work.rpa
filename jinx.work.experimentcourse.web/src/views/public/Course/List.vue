@@ -1,7 +1,7 @@
 <template>
   <jinx-layout-plain>
     <div class="course-list">
-      <div class="course-box" v-for="(item, index) in ListCourse" :style="{ 'background-image': 'url(\'' + item.img + '\')' }" @click="$router.push('/course')">
+      <div class="course-box" v-for="(item, index) in listCourse" :style="{ 'background-image': 'url(\'' + item.img + '\')' }" @click="$router.push('/course')">
         <div class="img"></div>
         <div class="title" v-text="item.name"></div>
         <div class="mask"></div>
@@ -16,7 +16,7 @@ import { useRouter } from "vue-router";
 
 const $router = useRouter();
 
-const ListCourse = [
+const listCourse = [
   {
     name: "经济大数据自动化机器人",
     img: "https://rpa.shapanyun.com/products/%E7%94%B5%E5%95%86%E5%A4%A7%E6%95%B0%E6%8D%AE%E8%87%AA%E5%8A%A8%E5%8C%96%E6%9C%BA%E5%99%A8%E4%BA%BA/cover/cover.jpg",

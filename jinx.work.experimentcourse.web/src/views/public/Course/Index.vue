@@ -2,7 +2,7 @@
   <jinx-layout-plain>
     <div class="course-title"><span v-text="course.title"></span></div>
 
-    <el-tabs v-model="activeTab" class="demo-tabs" @tab-click="handleClick">
+    <el-tabs v-model="activeTab" @tab-click="handleClick">
       <el-tab-pane label="课程详情" name="introduce"> <div v-html="course.introduce"></div></el-tab-pane>
       <el-tab-pane label="浏览课程" name="browse">
         <div class="module-cards">

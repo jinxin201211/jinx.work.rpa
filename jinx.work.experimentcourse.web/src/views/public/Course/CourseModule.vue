@@ -37,6 +37,7 @@
 import JinxLayout from "../components/JinxLayout.vue";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
+import globalVariable from "../../../javascripts/global.variable";
 
 const $router = useRouter();
 
@@ -47,12 +48,12 @@ const course = {
   modules: [
     {
       title: "简介-经济大数据自动化机器人实验系统",
-      resource: "https://rpa.shapanyun.com/web/static/pdf/web/viewer.html?file=/products/%E7%BB%8F%E6%B5%8E%E5%A4%A7%E6%95%B0%E6%8D%AE%E8%87%AA%E5%8A%A8%E5%8C%96%E6%9C%BA%E5%99%A8%E4%BA%BA/%E7%AE%80%E4%BB%8B-%E7%BB%8F%E6%B5%8E%E5%A4%A7%E6%95%B0%E6%8D%AE%E8%87%AA%E5%8A%A8%E5%8C%96%E6%9C%BA%E5%99%A8%E4%BA%BA%E5%AE%9E%E9%AA%8C%E7%B3%BB%E7%BB%9F.pdf&page=#1&v=1.0.0.12",
+      resource: "",
       type: "pdf",
     },
     {
       title: "教学大纲-经济大数据机器人系统",
-      resource: "https://rpa.shapanyun.com/web/static/pdf/web/viewer.html?file=/products/%E7%BB%8F%E6%B5%8E%E5%A4%A7%E6%95%B0%E6%8D%AE%E8%87%AA%E5%8A%A8%E5%8C%96%E6%9C%BA%E5%99%A8%E4%BA%BA/%E6%95%99%E5%AD%A6%E5%A4%A7%E7%BA%B2-%E7%BB%8F%E6%B5%8E%E5%A4%A7%E6%95%B0%E6%8D%AE%E6%9C%BA%E5%99%A8%E4%BA%BA%E7%B3%BB%E7%BB%9F.pdf&page=#1&v=1.0.0.12",
+      resource: "",
       type: "pdf",
     },
   ],
@@ -354,12 +355,12 @@ const course = {
   ],
 };
 
-let pdf = ref(course.modules[0].resource);
+let pdf = ref(globalVariable.$PdfViewerPath + course.modules[0].resource);
 
 const handleChangeModule = (index) => {
   if (index !== moduleIndex.value) {
     moduleIndex.value = index;
-    pdf.value = course.modules[index].resource;
+    pdf.value = globalVariable.$PdfViewerPath + course.modules[index].resource;
   }
 };
 </script>

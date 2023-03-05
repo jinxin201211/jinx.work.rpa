@@ -2,18 +2,18 @@
   <jinx-layout :wide="true">
     <template #sidebar>
       <div class="jinx-help-menu">
-        <template v-for="(group, index) in ListHelpCenter">
-          <div class="title" :class="{ active: GroupIndex === index }"><span v-text="group.title"></span></div>
+        <template v-for="(group, index) in listHelpCenter">
+          <div class="title" :class="{ active: indexGroup === index }"><span v-text="group.title"></span></div>
           <ul>
-            <li class="" v-for="(help, index2) in group.children" :class="{ active: GroupIndex === index && HelpIndex === index2 }" v-text="help.title" @click="handleHelpChange(index, index2)"></li>
+            <li class="" v-for="(help, index2) in group.children" :class="{ active: indexGroup === index && indexHelp === index2 }" v-text="help.title" @click="handleHelpChange(index, index2)"></li>
           </ul>
         </template>
       </div>
     </template>
     <template #default>
       <div class="jinx-help-content">
-        <div class="title" v-text="CurrentTitle"></div>
-        <component :is="CurrentComponent"></component>
+        <div class="title" v-text="currentTitle"></div>
+        <component :is="currentComponent"></component>
       </div>
     </template>
   </jinx-layout>
@@ -21,8 +21,6 @@
 
 <script setup>
 import JinxLayout from "../components/JinxLayout.vue";
-// import JinxNavbarMenu from "../components/JinxNavbarMenu.vue";
-// import JinxLayoutFooter from "../components/JinxLayoutFooter.vue";
 import { onMounted, markRaw, reactive, ref } from "vue";
 import UiPathDownload from "./components/UiPathDownload.vue";
 import UiPathInstall from "./components/UiPathInstall.vue";
@@ -35,7 +33,7 @@ import OpeningQuestion from "./components/OpeningQuestion.vue";
 import SpecifiedQuestion from "./components/SpecifiedQuestion.vue";
 import { useRoute } from "vue-router";
 
-const ListHelpCenter = [
+const listHelpCenter = [
   {
     title: "UiPath",
     children: [
@@ -98,17 +96,17 @@ const ListHelpCenter = [
   },
 ];
 
-let GroupIndex = ref(0);
-let HelpIndex = ref(0);
+let indexGroup = ref(0);
+let indexHelp = ref(0);
 
-let CurrentComponent = reactive(ListHelpCenter[0].children[0].component);
-let CurrentTitle = ref(ListHelpCenter[0].children[0].title);
+let currentComponent = reactive(listHelpCenter[0].children[0].component);
+let currentTitle = ref(listHelpCenter[0].children[0].title);
 
 const handleHelpChange = (gindex, hindex) => {
-  GroupIndex.value = gindex;
-  HelpIndex.value = hindex;
-  CurrentComponent = ListHelpCenter[gindex].children[hindex].component;
-  CurrentTitle.value = ListHelpCenter[gindex].children[hindex].title;
+  indexGroup.value = gindex;
+  indexHelp.value = hindex;
+  currentComponent = listHelpCenter[gindex].children[hindex].component;
+  currentTitle.value = listHelpCenter[gindex].children[hindex].title;
 };
 
 const $route = useRoute();
@@ -118,9 +116,9 @@ onMounted(() => {
   let hindex = 0;
   if (key) {
     let match = false;
-    for (let i = 0; i < ListHelpCenter.length; i++) {
-      for (let j = 0; j < ListHelpCenter[i].children.length; j++) {
-        if (ListHelpCenter[i].children[j].key === key) {
+    for (let i = 0; i < listHelpCenter.length; i++) {
+      for (let j = 0; j < listHelpCenter[i].children.length; j++) {
+        if (listHelpCenter[i].children[j].key === key) {
           gindex = i;
           hindex = j;
           match = true;
