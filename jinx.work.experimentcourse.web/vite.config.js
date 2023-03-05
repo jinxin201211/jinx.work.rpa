@@ -9,6 +9,8 @@ import AutoImport from "unplugin-auto-import/vite";
 import Components from "unplugin-vue-components/vite";
 import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
 
+import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
+
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
@@ -28,6 +30,12 @@ export default defineConfig({
     Components({
       resolvers: [ElementPlusResolver({ importStyle: "sass" })],
     }),
+    createSvgIconsPlugin({
+      // 要缓存的图标文件夹
+      iconDirs: [path.resolve(__dirname, 'src/icons/svg')],
+      // 执行 icon name 的格式
+      symbolId: 'icon-[name]'
+    })
   ],
   resolve: {
     // 配置路径别名

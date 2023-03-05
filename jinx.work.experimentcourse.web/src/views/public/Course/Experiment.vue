@@ -19,7 +19,7 @@
         <div class="menu-box">
           <div class="menu-summary">
             <span>概述</span>
-            <svg t="1678023727238" class="icon" viewBox="0 0 1902 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3570"><path d="M0 0h1901.714L950.857 1024" p-id="3571"></path></svg>
+            <jinx-icon-svg icon="down" clazz="icon"></jinx-icon-svg>
           </div>
           <div class="menu-module" v-for="(module, index2) in menu.modules">
             <el-link @click="handleModuleClick(index, index2)"><span v-text="module.title"></span></el-link>
@@ -231,7 +231,7 @@ const handleViewModule = () => {
   left: 0;
   top: 0;
   height: 100%;
-  width: 5px;
+  width: 4px;
   background: @border-color;
 }
 

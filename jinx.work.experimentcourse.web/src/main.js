@@ -16,5 +16,9 @@ app.use(Directives);
 
 import "./styles/global.css";
 
+import "virtual:svg-icons-register";
+import { setJinxIconsvg } from "./icons";
+setJinxIconsvg(app);
+
 //注意use要放在mount之前，否则将报Failed to resolve component: router-view错误
 app.mount("#app");
