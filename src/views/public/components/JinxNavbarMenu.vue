@@ -1,6 +1,6 @@
 <template>
-  <div class="jinx-nav">
-    <div class="jinx-menu-center">
+  <div class="jinx-navbar">
+    <div class="jinx-navbar-menu">
       <ul class="jinx-menu" style="flex: 1">
         <li class="jinx-menu-item" :class="{ hover: hover === 'course' }" @click="$router.push('/course')">
           <span>课程</span>
@@ -45,7 +45,7 @@ const refresh = () => {};
 </script>
 
 <style lang="less" scoped>
-.jinx-nav {
+.jinx-navbar {
   width: 100%;
   min-width: @typical-width;
   box-sizing: border-box;
@@ -59,7 +59,7 @@ const refresh = () => {};
   -khtml-user-select: none; /*早期浏览器*/
   user-select: none;
 
-  .jinx-menu-center {
+  .jinx-navbar-menu {
     margin: 0 auto;
     padding: 0;
     width: @typical-width;

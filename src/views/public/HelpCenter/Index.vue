@@ -1,7 +1,6 @@
 <template>
-  <div class="jinx-layout jinx-helpcenter">
-    <jinx-navbar-menu></jinx-navbar-menu>
-    <div class="jinx-layout-body jinx-help">
+  <jinx-layout :wide="true">
+    <template #sidebar>
       <div class="jinx-help-menu">
         <template v-for="(group, index) in ListHelpCenter">
           <div class="title" :class="{ active: GroupIndex === index }"><span v-text="group.title"></span></div>
@@ -10,19 +9,20 @@
           </ul>
         </template>
       </div>
-
+    </template>
+    <template #default>
       <div class="jinx-help-content">
         <div class="title" v-text="CurrentTitle"></div>
         <component :is="CurrentComponent"></component>
       </div>
-    </div>
-    <jinx-layout-footer></jinx-layout-footer>
-  </div>
+    </template>
+  </jinx-layout>
 </template>
 
 <script setup>
-import JinxNavbarMenu from "../components/JinxNavbarMenu.vue";
-import JinxLayoutFooter from "../components/JinxLayoutFooter.vue";
+import JinxLayout from "../components/JinxLayout.vue";
+// import JinxNavbarMenu from "../components/JinxNavbarMenu.vue";
+// import JinxLayoutFooter from "../components/JinxLayoutFooter.vue";
 import { onMounted, markRaw, reactive, ref } from "vue";
 import UiPathDownload from "./components/UiPathDownload.vue";
 import UiPathInstall from "./components/UiPathInstall.vue";
@@ -137,101 +137,79 @@ onMounted(() => {
 </script>
 
 <style lang="less" scoped>
-.jinx-layout {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  min-width: @typical-width;
-  overflow: hidden;
+.jinx-help-menu {
+  width: 300px;
+  padding: 20px;
+  border-right: 1px solid @border-color;
 
-  .jinx-layout-body {
-    flex: 1;
-    overflow: hidden;
-  }
-}
-.jinx-helpcenter {
-  :deep(.jinx-menu-center) {
-    width: 100%;
-  }
-}
-
-.jinx-help {
-  display: flex;
-
-  .jinx-help-menu {
-    width: 300px;
-    padding: 20px;
-    border-right: 1px solid @border-color;
-
-    .title {
-      span {
-        position: relative;
-        display: inline-block;
-        font-size: 16px;
-        font-weight: 400;
-        color: #999;
-        line-height: 38px;
-      }
-      span::after {
-        content: " ";
-        width: 100%;
-        max-width: 100%;
-        height: 1px;
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        background-color: transparent;
-      }
-    }
-
-    .title.active {
-      span::after {
-        background-color: @primary-color;
-      }
-    }
-
-    ul {
-      list-style: none;
-      margin: 0;
-      li {
-        padding: 10px 0;
-        font-size: 16px;
-        line-height: 25px;
-        cursor: pointer;
-        color: #333;
-      }
-
-      li.active {
-        color: @primary-color;
-        font-size: 18px;
-      }
-    }
-  }
-
-  .jinx-help-content {
-    overflow-y: auto;
-    padding: 0 20px;
-    flex: 1;
-
-    .title {
+  .title {
+    span {
       position: relative;
       display: inline-block;
-      font-size: 30px;
+      font-size: 16px;
       font-weight: 400;
-      line-height: 30px;
-      padding: 10px 0 20px;
-      color: #333;
+      color: #999;
+      line-height: 38px;
     }
-    .title::after {
+    span::after {
       content: " ";
-      width: 75px;
+      width: 100%;
       max-width: 100%;
       height: 1px;
-      background-color: @primary-color;
       position: absolute;
       bottom: 0;
       left: 0;
+      background-color: transparent;
     }
+  }
+
+  .title.active {
+    span::after {
+      background-color: @primary-color;
+    }
+  }
+
+  ul {
+    list-style: none;
+    margin: 0;
+    li {
+      padding: 10px 0;
+      font-size: 16px;
+      line-height: 25px;
+      cursor: pointer;
+      color: #333;
+    }
+
+    li.active {
+      color: @primary-color;
+      font-size: 18px;
+    }
+  }
+}
+
+.jinx-help-content {
+  overflow-y: auto;
+  padding: 0 20px;
+  flex: 1;
+
+  .title {
+    position: relative;
+    display: inline-block;
+    font-size: 30px;
+    font-weight: 400;
+    line-height: 30px;
+    padding: 10px 0 20px;
+    color: #333;
+  }
+  .title::after {
+    content: " ";
+    width: 75px;
+    max-width: 100%;
+    height: 1px;
+    background-color: @primary-color;
+    position: absolute;
+    bottom: 0;
+    left: 0;
   }
 }
 </style>
