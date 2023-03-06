@@ -71,15 +71,16 @@ const course = test.course;
 }
 
 .card {
-  border: 1px solid @border-color;
-  border-radius: 6px;
-  box-shadow: 3px 3px 10px @border-color;
-  width: 386.66666px;
-  // margin-right: 20px;
+  width: calc((100% - 40px) / 3);
   margin-bottom: 20px;
   padding: 20px;
+  border-radius: 6px;
+  background: @primary-back-color;
+  box-shadow: inset 5px 5px 5px #c7c7c7, inset -5px -5px 5px #ffffff;
 
   .header {
+    color: @primary-color;
+    font-size: 14px;
   }
   .content {
     border-bottom: 1px solid @border-color;

@@ -136,9 +136,9 @@ onMounted(() => {
 
 <style lang="less" scoped>
 .jinx-help-menu {
-  width: 300px;
+  width: 100%;
   padding: 20px;
-  border-right: 1px solid @border-color;
+  // border-right: 1px solid @border-color;
 
   .title {
     span {

@@ -27,6 +27,7 @@ body {
   height: 100%;
   padding: 0;
   margin: 0;
+  background: var(--primary-back-color);
 }
 #app {
   width: 100%;

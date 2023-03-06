@@ -51,7 +51,8 @@ const refresh = () => {};
   box-sizing: border-box;
   background: #ffffff;
   padding: 0;
-  border-bottom: 1px solid @border-color;
+  // border-bottom: 1px solid @border-color;
+  box-shadow: 0 0 5px @border-shadow-color;
   // box-shadow: 0px 2px 24px 6px rgba(51, 51, 51, 0.6);
   -moz-user-select: none; /*火狐*/
   -webkit-user-select: none; /*webkit浏览器*/

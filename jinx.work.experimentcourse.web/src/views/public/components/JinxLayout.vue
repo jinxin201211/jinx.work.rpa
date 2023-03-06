@@ -46,7 +46,8 @@ const props = defineProps({
 
     .jinx-layout-sidebar {
       width: 360px;
-      border-right: 1px solid @border-color;
+      // border-right: 1px solid @border-color;
+      box-shadow: 0 0 5px @border-shadow-color;
     }
     .jinx-layout-body {
       flex: 1;

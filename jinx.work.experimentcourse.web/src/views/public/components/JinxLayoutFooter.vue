@@ -13,6 +13,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  border-top: 1px solid @border-color;
+  // border-top: 1px solid @border-color;
+  box-shadow: 0 0 5px @border-shadow-color;
+  background: #ffffff;
 }
 </style>

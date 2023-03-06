@@ -14,7 +14,7 @@
           <span class="text" v-text="item.title"></span>
         </div>
       </div>
-      <div v-for="(menu, index) in experiment.menus" v-show="index === activeMenu">
+      <div class="experiment-module-box" v-for="(menu, index) in experiment.menus" v-show="index === activeMenu">
         <div class="menu-title"><span v-text="menu.title"></span></div>
         <div class="menu-box">
           <div class="menu-summary">
@@ -213,8 +213,8 @@ const handleViewModule = () => {
 }
 
 .experiment-box {
-  background: #f1f1f1;
-  padding: 20px;
+  // background: #f1f1f1;
+  // padding: 20px;
 }
 .experiment-help,
 .menu-module {
@@ -266,27 +266,33 @@ const handleViewModule = () => {
   }
 }
 
-.menu-title {
-  font-size: 18px;
-  color: @primary-color;
-}
-
-.menu-box {
-  padding-left: 2em;
-  .menu-summary {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    margin-bottom: 20px;
-    .icon {
-      width: 14px;
-      height: 14px;
-      margin-left: 8px;
+.experiment-module-box {
+  border-radius: 12px;
+  background: @primary-back-color;
+  box-shadow: 7px 7px 10px #c7c7c7, -7px -7px 10px #ffffff;
+  padding: 20px;
+  .menu-title {
+    font-size: 18px;
+    color: @primary-color;
+    margin-top: 0;
+  }
+  .menu-box {
+    padding-left: 2em;
+    .menu-summary {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      margin-bottom: 20px;
+      .icon {
+        width: 14px;
+        height: 14px;
+        margin-left: 8px;
+      }
     }
   }
-}
-.menu-button {
-  display: flex;
-  justify-content: flex-end;
+  .menu-button {
+    display: flex;
+    justify-content: flex-end;
+  }
 }
 </style>
