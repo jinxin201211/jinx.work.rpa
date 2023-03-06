@@ -254,6 +254,8 @@ const handleViewModule = () => {
       line-height: 20px;
       color: #666666;
       text-align: center;
+      font-size: 14px;
+      font-weight: 600;
     }
   }
 
@@ -269,12 +271,19 @@ const handleViewModule = () => {
 .experiment-module-box {
   border-radius: 12px;
   background: @primary-back-color;
-  box-shadow: 7px 7px 10px #c7c7c7, -7px -7px 10px #ffffff;
+  box-shadow: 7px 7px 12px #e0e0e0, -7px -7px 12px #ffffff;
   padding: 20px;
+  padding-bottom: 40px;
+  overflow: hidden;
+  position: relative;
   .menu-title {
-    font-size: 18px;
-    color: @primary-color;
+    font-size: 14px;
     margin-top: 0;
+    background: @primary-color;
+    color: #f1f1f1;
+    padding: 7px 22px;
+    border-radius: 20px;
+    display: inline-block;
   }
   .menu-box {
     padding-left: 2em;
@@ -293,6 +302,23 @@ const handleViewModule = () => {
   .menu-button {
     display: flex;
     justify-content: flex-end;
+    position: absolute;
+    width: 100%;
+    left: 0;
+    bottom: -40px;
+    transition: all 0.2s ease-in-out;
+    :deep(.el-button) {
+      width: 100%;
+      border: none;
+      background: @primary-color;
+      border-radius: 0;
+      color: #f1f1f1;
+    }
+  }
+}
+.experiment-module-box:hover {
+  .menu-button {
+    bottom: 0;
   }
 }
 </style>

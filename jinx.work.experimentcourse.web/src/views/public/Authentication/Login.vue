@@ -43,6 +43,7 @@
 import { reactive, ref } from "vue";
 import moment from "moment";
 import backgroundImage from "@/assets/c91f4c5f3d874deab52f6d3a050d495e.jpg";
+import JinxButton from "../components/JinxButton.vue";
 
 let form = reactive({
   account: "",
