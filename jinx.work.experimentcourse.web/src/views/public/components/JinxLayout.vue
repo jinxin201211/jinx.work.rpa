@@ -62,5 +62,11 @@ const props = defineProps({
   :deep(.jinx-navbar-menu) {
     width: 100%;
   }
+  :deep(.jinx-navbar .jinx-menu-item:first-child) {
+    margin-left: 30px;
+  }
+  :deep(.jinx-navbar .jinx-navbar-item:last-child) {
+    margin-right: 10px;
+  }
 }
 </style>

@@ -246,8 +246,8 @@ const handleViewModule = () => {
     width: 120px;
     height: 120px;
     border-radius: 100px;
-    background: linear-gradient(145deg, #e6e6e6, #ffffff);
-    box-shadow: 20px 20px 60px #d9d9d9, -20px -20px 60px #ffffff;
+    background: linear-gradient(145deg, #d9d9d9, #ffffff);
+    box-shadow: 5px 5px 20px #cfcfcf, -5px -5px 20px #ffffff;
     cursor: pointer;
     .text {
       padding: 20px;
@@ -258,8 +258,8 @@ const handleViewModule = () => {
   }
 
   .experiment-menu.active {
-    background: linear-gradient(145deg, #ffffff, #e6e6e6);
-    box-shadow: 20px 20px 60px #d9d9d9, -20px -20px 60px #ffffff;
+    background: linear-gradient(145deg, #ffffff, #d9d9d9);
+    box-shadow: 5px 5px 11px #cdcdcd, -5px -5px 11px #ffffff;
     .text {
       color: @primary-color;
     }

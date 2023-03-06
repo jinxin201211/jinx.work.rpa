@@ -8,6 +8,15 @@ const routes = [
     redirect: "home",
   },
   {
+    path: "/login",
+    name: "Login",
+    component: () => import("../views/public/Authentication/Login.vue"),
+    meta: {
+      keepAlive: true,
+      title: "登录",
+    },
+  },
+  {
     path: "/home",
     name: "Home",
     component: () => import("../views/public/Home.vue"),

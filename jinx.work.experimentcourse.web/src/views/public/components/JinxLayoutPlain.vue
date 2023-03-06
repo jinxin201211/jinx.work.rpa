@@ -13,6 +13,7 @@
 <script setup>
 import JinxNavbarMenu from "../components/JinxNavbarMenu.vue";
 import JinxLayoutFooter from "../components/JinxLayoutFooter.vue";
+import { reactive } from "vue";
 
 const props = defineProps({
   wide: {
@@ -58,6 +59,12 @@ const props = defineProps({
   }
   :deep(.jinx-navbar-menu) {
     width: 100%;
+  }
+  :deep(.jinx-menu-item:first-child) {
+    margin-left: 30px;
+  }
+  :deep(.jinx-navbar-item:last-child) {
+    margin-right: 10px;
   }
 }
 </style>
