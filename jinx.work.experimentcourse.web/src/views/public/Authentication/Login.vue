@@ -19,22 +19,6 @@
         <span>登录</span>
       </div>
       <div class="login-time"><span v-text="loginTime"></span></div>
-      <!-- <div></div>
-      <el-form ref="form" :model="form">
-        <div>用户登录</div>
-        <el-form-item label="" prop="account" :rules="[{ required: true, message: '请输入用户名', trigger: 'blur' }]">
-          <el-input v-model="form.account" @keyup.enter.native="handleSubmit"></el-input>
-        </el-form-item>
-        <el-form-item label="" prop="password" :rules="[{ required: true, message: '请输入密码', trigger: 'blur' }]">
-          <el-input v-model="form.password" show-password @keyup.enter.native="handleSubmit"></el-input>
-        </el-form-item>
-        <div>
-          <el-link>忘记密码？</el-link>
-        </div>
-        <el-form-item>
-          <el-button type="primary" @click="handleSubmit" :loading="loading">立即登录</el-button>
-        </el-form-item>
-      </el-form> -->
     </div>
   </div>
 </template>
@@ -96,13 +80,6 @@ const handleInputEnd = () => {
   background-position: center;
   background-size: cover;
   background-repeat: repeat;
-  // background: #4158d0;
-  // padding: 15px;
-  // background: #9053c7;
-  // background: -webkit-linear-gradient(-135deg, #c850c0, #4158d0);
-  // background: -o-linear-gradient(-135deg, #c850c0, #4158d0);
-  // background: -moz-linear-gradient(-135deg, #c850c0, #4158d0);
-  // background: linear-gradient(-135deg, #c850c0, #4158d0);
 
   .login-box {
     height: 480px;
@@ -112,34 +89,30 @@ const handleInputEnd = () => {
     align-items: center;
     flex-direction: column;
     background: rgba(224, 224, 224, 0.95);
-    border-radius: 10px;
-    box-shadow: 0 0 10px #e0e0e0;
+    border-radius: 6px;
+    box-shadow: 0 0 6px #e0e0e0;
     .login-title {
-      font-size: 28px;
+      font-size: 24px;
       margin-bottom: 20px;
       font-weight: 800;
-      color: #009087;
+      color: @primary-color;
     }
     .login-form-input {
       background: rgba(255, 255, 255, 0.5);
-      border-radius: 28px;
-      height: 56px;
-      width: 360px;
+      border-radius: 20px;
+      height: 45px;
+      width: 300px;
       margin: 20px 0;
-      padding: 8px 35px;
+      padding: 8px 30px;
       display: flex;
       align-items: center;
       justify-content: center;
       background: #e0e0e0;
-      box-shadow: inset 3px 3px 5px #a8a8a8, inset -3px -3px 5px #ffffff;
-      // box-shadow: 0 0 15px #555555;
-      // box-shadow: rgb(191 199 217) 9.91px 9.91px 15px inset, rgb(229 239 255) -9.91px -9.91px 15px inset;
-      // // border-radius: 7.5%;
-      // background: linear-gradient(145deg, rgb(181, 189, 205), rgb(239, 249, 255));
+      box-shadow: inset 3px 3px 8px #d0d0d0, inset -3px -3px 8px #f0f0f0;
       position: relative;
       .icon {
-        height: 24px;
-        width: 24px;
+        height: 16px;
+        width: 16px;
         margin-right: 8px;
       }
       input {
@@ -148,20 +121,20 @@ const handleInputEnd = () => {
         flex: 1;
         background: transparent;
         border: none;
-        font-size: 18px;
+        font-size: 14px;
         color: #090909;
         outline: none;
       }
       .login-error-message {
         position: absolute;
-        bottom: -25px;
-        left: 68px;
-        color: @primary-color;
+        bottom: -24px;
+        left: 31px;
+        color: @error-color;
         display: none;
       }
     }
     .login-form-input.invalid {
-      border: 1px solid @primary-color;
+      border: 1px solid @error-color;
       .login-error-message {
         display: initial;
       }
@@ -170,7 +143,7 @@ const handleInputEnd = () => {
       display: flex;
       justify-content: flex-end;
       margin: 20px 0;
-      width: 360px;
+      width: 300px;
       :deep(.el-link) {
         color: #090909;
       }
@@ -179,9 +152,9 @@ const handleInputEnd = () => {
       }
     }
     .login-form-button {
-      border-radius: 28px;
-      height: 56px;
-      width: 360px;
+      border-radius: 20px;
+      height: 45px;
+      width: 300px;
       margin: 20px 0;
       display: flex;
       justify-content: center;
@@ -194,7 +167,7 @@ const handleInputEnd = () => {
       z-index: 1;
       color: #090909;
       // padding: 0.7em 1.7em;
-      font-size: 18px;
+      font-size: 16px;
       // border-radius: 0.5em;
       background: #e8e8e8;
       border: 1px solid #e8e8e8;
@@ -226,7 +199,7 @@ const handleInputEnd = () => {
       top: 180%;
       width: 160%;
       height: 190%;
-      background-color: #009087;
+      background-color: @primary-color;
       border-radius: 50%;
       display: block;
       transition: all 0.5s 0.1s cubic-bezier(0.55, 0, 0.1, 1);
@@ -234,20 +207,20 @@ const handleInputEnd = () => {
     }
     .login-form-button:hover {
       color: #ffffff;
-      border: 1px solid #009087;
+      border: 1px solid @primary-color;
     }
     .login-form-button:hover:before {
       top: -35%;
-      background-color: #009087;
+      background-color: @primary-color;
       transform: translateX(-50%) scaleY(1.3) scaleX(0.8);
     }
     .login-form-button:hover:after {
       top: -45%;
-      background-color: #009087;
+      background-color: @primary-color;
       transform: translateX(-50%) scaleY(1.3) scaleX(0.8);
     }
     .login-time {
-      // color: #8753c8;
+      font-size: 14px;
       color: #090909;
     }
   }

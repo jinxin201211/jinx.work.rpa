@@ -54,7 +54,7 @@ const course = test.course;
 <style lang="less" scoped>
 .course-title {
   font-size: 24px;
-  // line-height: 40px;
+  font-weight: 600;
   margin: 20px 0;
 }
 
