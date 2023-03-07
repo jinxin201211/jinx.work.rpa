@@ -3,44 +3,66 @@
     <template #sidebar>
       <div class="module-navbar">
         <div class="experiment-title"><span v-text="experiment.title"></span></div>
-        <div class="module-header"><span>实验模块</span></div>
-        <div class="module-progress">
-          <div class="module-progress-prev" :class="{ disabled: menuIndex === 0 }" @click="handlePrevMenu">
-            <jinx-icon-svg icon="angle-left" clazz="icon" v-if="menuIndex !== 0"></jinx-icon-svg>
-            <jinx-icon-svg icon="angle-left-disabled" clazz="icon" v-else></jinx-icon-svg>
-            <span>上一模块</span>
-          </div>
-          <div class="module-progress-title">
-            <div class="text"><span v-text="experiment.menus[menuIndex].title"></span></div>
-          </div>
-          <div class="module-progress-next" :class="{ disabled: menuIndex === experiment.menus.length - 1 }" @click="handleNextMenu">
-            <span>下一模块</span>
-            <jinx-icon-svg icon="angle-left" clazz="icon" style="transform: rotate(180deg)" v-if="menuIndex !== experiment.menus.length - 1"></jinx-icon-svg>
-            <jinx-icon-svg icon="angle-left-disabled" clazz="icon" style="transform: rotate(180deg)" v-else></jinx-icon-svg>
-          </div>
-        </div>
-        <div class="module-introduce" v-if="experiment.menus[menuIndex].introduce"><span v-text="experiment.menus[menuIndex].introduce"></span></div>
-        <ul class="module-menu">
-          <li v-for="(item, index) in experiment.menus[menuIndex].modules" :class="{ active: moduleIndex === index }" @click="handleChangeModule(index)">
-            <jinx-icon-svg icon="pdf" clazz="icon" v-if="item.type === 'pdf'"></jinx-icon-svg>
-            <jinx-icon-svg icon="code" clazz="icon" v-else></jinx-icon-svg>
-            <span v-text="item.title"></span>
-          </li>
-        </ul>
+
+        <el-tabs v-model="activeTab">
+          <el-tab-pane label="实验模块" name="module">
+            <div class="module-progress">
+              <div class="module-progress-prev" :class="{ disabled: menuIndex === 0 }" @click="handlePrevMenu">
+                <jinx-icon-svg icon="angle-left" clazz="icon" v-if="menuIndex !== 0"></jinx-icon-svg>
+                <jinx-icon-svg icon="angle-left-disabled" clazz="icon" v-else></jinx-icon-svg>
+                <span>上一模块</span>
+              </div>
+              <div class="module-progress-title" :title="experiment.menus[menuIndex].title">
+                <div class="text"><span v-text="experiment.menus[menuIndex].title"></span></div>
+              </div>
+              <div class="module-progress-next" :class="{ disabled: menuIndex === experiment.menus.length - 1 }" @click="handleNextMenu">
+                <span>下一模块</span>
+                <jinx-icon-svg icon="angle-left" clazz="icon" style="transform: rotate(180deg)" v-if="menuIndex !== experiment.menus.length - 1"></jinx-icon-svg>
+                <jinx-icon-svg icon="angle-left-disabled" clazz="icon" style="transform: rotate(180deg)" v-else></jinx-icon-svg>
+              </div>
+            </div>
+            <div class="module-introduce" v-if="experiment.menus[menuIndex].introduce"><span v-text="experiment.menus[menuIndex].introduce"></span></div>
+            <ul class="module-menu">
+              <li v-for="(item, index) in experiment.menus[menuIndex].modules" :class="{ active: moduleIndex === index }" @click="handleChangeModule(index)">
+                <jinx-icon-svg icon="pdf" clazz="icon" v-if="item.type === 'pdf'"></jinx-icon-svg>
+                <jinx-icon-svg icon="code" clazz="icon" v-else></jinx-icon-svg>
+                <span v-text="item.title"></span>
+              </li>
+            </ul>
+          </el-tab-pane>
+          <el-tab-pane label="实验数据" name="work">
+            <ul class="module-menu">
+              <li :class="{ active: workIndex === 0 }" @click="handleUploadWork()">
+                <jinx-icon-svg icon="upload" clazz="icon"></jinx-icon-svg>
+                <span>上传数据</span>
+              </li>
+              <li :class="{ active: workIndex === 1 }" @click="handleViewWork()">
+                <jinx-icon-svg icon="view" clazz="icon"></jinx-icon-svg>
+                <span>查看数据</span>
+              </li>
+            </ul>
+          </el-tab-pane>
+        </el-tabs>
       </div>
     </template>
     <template #default>
-      <div class="module-iframe" v-if="experiment.menus[menuIndex].modules[moduleIndex].type === 'pdf'">
-        <iframe :src="pdf"></iframe>
-      </div>
-      <div class="module-download" v-else>
-        <div class="download">下载</div>
-        <div class="module-file">
-          <jinx-icon-svg icon="zip" clazz="icon"></jinx-icon-svg>
-          <span class="text" v-text="experiment.menus[menuIndex].modules[moduleIndex].resource" @click="handleDownloadResource"></span>
+      <template v-if="activeTab === 'module'">
+        <div class="module-iframe" v-if="experiment.menus[menuIndex].modules[moduleIndex].type === 'pdf'">
+          <iframe :src="pdf"></iframe>
         </div>
-        <el-button class="module-download-button" @click="handleDownloadResource">点击下载</el-button>
-      </div>
+        <div class="module-download" v-else>
+          <div class="module-download-box jinx-soft-flat">
+            <div class="module-download-box-body">
+              <div class="download">下载</div>
+              <div class="module-file jinx-soft-pressed">
+                <jinx-icon-svg icon="file-zip" clazz="icon"></jinx-icon-svg>
+                <span class="text" v-text="experiment.menus[menuIndex].modules[moduleIndex].resource" @click="handleDownloadResource"></span>
+              </div>
+            </div>
+            <el-button class="module-download-button" @click="handleDownloadResource">点击下载</el-button>
+          </div>
+        </div>
+      </template>
     </template>
   </jinx-layout>
 </template>
@@ -50,143 +72,17 @@ import JinxLayout from "../components/JinxLayout.vue";
 import { ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import globalVariable from "../../../javascripts/global.variable";
+import test from "../../../javascripts/test";
 
 const $router = useRouter();
 const $route = useRoute();
 
+let activeTab = ref("module");
+
 let menuIndex = ref(($route.query.menu || 0) * 1);
 let moduleIndex = ref(($route.query.module || 0) * 1);
 
-const experiment = {
-  title: "国民经济运行监测数字化实验",
-  menus: [
-    {
-      title: "数据源与看板制作",
-      introduce: "通过抓取到的数据结果，制作数据看板，方便高效直观地分析数据",
-      modules: [
-        {
-          title: "分省年度统计数据",
-          resource: "/resources/看板数据源.zip",
-          type: "zip",
-        },
-        {
-          title: "导入数据与类型调整",
-          resource: "https://rpa.shapanyun.com/web/static/pdf/web/viewer.html?file=/products/经济大数据自动化机器人/教学大纲-经济大数据机器人系统.pdf&page=#1&v=1.0.0.12",
-          type: "pdf",
-        },
-        {
-          title: "制作工作表",
-          resource: "https://rpa.shapanyun.com/web/static/pdf/web/viewer.html?file=/products/经济大数据自动化机器人/教学大纲-经济大数据机器人系统.pdf&page=#1&v=1.0.0.12",
-          type: "pdf",
-        },
-        {
-          title: "制作仪表盘",
-          resource: "https://rpa.shapanyun.com/web/static/pdf/web/viewer.html?file=/products/经济大数据自动化机器人/教学大纲-经济大数据机器人系统.pdf&page=#1&v=1.0.0.12",
-          type: "pdf",
-        },
-        {
-          title: "样式处理",
-          resource: "https://rpa.shapanyun.com/web/static/pdf/web/viewer.html?file=/products/经济大数据自动化机器人/教学大纲-经济大数据机器人系统.pdf&page=#1&v=1.0.0.12",
-          type: "pdf",
-        },
-        {
-          title: "地方经济运行监测看板",
-          resource: "/resources/看板数据源.zip",
-          type: "code",
-        },
-      ],
-    },
-    {
-      title: "新建项目与读取筛选数据",
-      introduce: "通过抓取到的数据结果，制作数据看板，方便高效直观地分析数据",
-      modules: [
-        {
-          title: "统计指标条件文件",
-          resource: "https://rpa.shapanyun.com/web/static/pdf/web/viewer.html?file=/products/经济大数据自动化机器人/教学大纲-经济大数据机器人系统.pdf&page=#1&v=1.0.0.12",
-          type: "zip",
-        },
-        {
-          title: "新建项目与读取筛选数据",
-          resource: "https://rpa.shapanyun.com/web/static/pdf/web/viewer.html?file=/products/经济大数据自动化机器人/教学大纲-经济大数据机器人系统.pdf&page=#1&v=1.0.0.12",
-          type: "pdf",
-        },
-        {
-          title: "源代码",
-          resource: "https://rpa.shapanyun.com/web/static/pdf/web/viewer.html?file=/products/经济大数据自动化机器人/教学大纲-经济大数据机器人系统.pdf&page=#1&v=1.0.0.12",
-          type: "code",
-        },
-      ],
-    },
-    {
-      title: "数据搜索",
-      introduce: "",
-      modules: [
-        {
-          title: "基础源代码",
-          resource: "https://rpa.shapanyun.com/web/static/pdf/web/viewer.html?file=/products/经济大数据自动化机器人/教学大纲-经济大数据机器人系统.pdf&page=#1&v=1.0.0.12",
-          type: "zip",
-        },
-        {
-          title: "打开浏览器进入搜索界面",
-          resource: "https://rpa.shapanyun.com/web/static/pdf/web/viewer.html?file=/products/经济大数据自动化机器人/教学大纲-经济大数据机器人系统.pdf&page=#1&v=1.0.0.12",
-          type: "pdf",
-        },
-        {
-          title: "数据搜索",
-          resource: "https://rpa.shapanyun.com/web/static/pdf/web/viewer.html?file=/products/经济大数据自动化机器人/教学大纲-经济大数据机器人系统.pdf&page=#1&v=1.0.0.12",
-          type: "pdf",
-        },
-        {
-          title: "修改结果数据查看维度",
-          resource: "https://rpa.shapanyun.com/web/static/pdf/web/viewer.html?file=/products/经济大数据自动化机器人/教学大纲-经济大数据机器人系统.pdf&page=#1&v=1.0.0.12",
-          type: "pdf",
-        },
-      ],
-    },
-    {
-      title: "数据抓取",
-      introduce: "",
-      modules: [
-        {
-          title: "基础源代码",
-          resource: "https://rpa.shapanyun.com/web/static/pdf/web/viewer.html?file=/products/经济大数据自动化机器人/教学大纲-经济大数据机器人系统.pdf&page=#1&v=1.0.0.12",
-          type: "zip",
-        },
-        {
-          title: "按照年份抓取数据",
-          resource: "https://rpa.shapanyun.com/web/static/pdf/web/viewer.html?file=/products/经济大数据自动化机器人/教学大纲-经济大数据机器人系统.pdf&page=#1&v=1.0.0.12",
-          type: "pdf",
-        },
-      ],
-    },
-    {
-      title: "保存数据并打开看板",
-      introduce: "",
-      modules: [
-        {
-          title: "基础源代码",
-          resource: "https://rpa.shapanyun.com/web/static/pdf/web/viewer.html?file=/products/经济大数据自动化机器人/教学大纲-经济大数据机器人系统.pdf&page=#1&v=1.0.0.12",
-          type: "zip",
-        },
-        {
-          title: "保存数据",
-          resource: "https://rpa.shapanyun.com/web/static/pdf/web/viewer.html?file=/products/经济大数据自动化机器人/教学大纲-经济大数据机器人系统.pdf&page=#1&v=1.0.0.12",
-          type: "pdf",
-        },
-        {
-          title: "打开看板模板",
-          resource: "https://rpa.shapanyun.com/web/static/pdf/web/viewer.html?file=/products/经济大数据自动化机器人/教学大纲-经济大数据机器人系统.pdf&page=#1&v=1.0.0.12",
-          type: "pdf",
-        },
-        {
-          title: "完整源代码",
-          resource: "https://rpa.shapanyun.com/web/static/pdf/web/viewer.html?file=/products/经济大数据自动化机器人/教学大纲-经济大数据机器人系统.pdf&page=#1&v=1.0.0.12",
-          type: "code",
-        },
-      ],
-    },
-  ],
-};
+const experiment = test.course.experiments[0];
 
 let pdf = ref(globalVariable.$PdfViewerPath + experiment.menus[menuIndex.value].modules[moduleIndex.value].resource);
 
@@ -220,6 +116,14 @@ const handleNextMenu = () => {
     pdf.value = globalVariable.$PdfViewerPath + experiment.menus[menuIndex.value].modules[moduleIndex.value].resource;
   }
 };
+
+let workIndex = ref(0);
+const handleUploadWork = () => {
+  workIndex.value = 0;
+};
+const handleViewWork = () => {
+  workIndex.value = 1;
+};
 </script>
 
 <style lang="less" scoped>
@@ -233,7 +137,6 @@ const handleNextMenu = () => {
   .module-header {
     font-size: 20px;
     padding: 10px 0;
-    // border-bottom: 1px solid @border-color;
     color: @primary-color;
   }
   .module-introduce {
@@ -242,15 +145,28 @@ const handleNextMenu = () => {
     font-size: 14px;
     color: #969696;
   }
+  :deep(.el-tabs__nav) {
+    width: 100%;
+  }
+  :deep(.el-tabs__content) {
+    overflow: initial;
+  }
+  :deep(.el-tabs__item) {
+    width: 50%;
+    padding: 0;
+    text-align: center;
+    font-size: 18px;
+  }
   .module-progress {
     display: flex;
-    background: #f1f1f1;
+    background: #e0e0e0;
     width: calc(100% + 40px);
     margin-left: -20px;
-    padding: 15px 20px;
+    overflow: hidden;
     .module-progress-title {
       flex: 1;
       overflow: hidden;
+      padding: 15px 10px;
       .text {
         width: 100%;
         text-align: center;
@@ -265,22 +181,52 @@ const handleNextMenu = () => {
       cursor: pointer;
       align-items: center;
       font-size: 12px;
-      // width: 100px;
+      position: relative;
+      transition: all 0.2s ease-in-out;
       span {
-        margin: 0 8px;
+        z-index: 1;
       }
       .icon {
         width: 12px;
         height: 12px;
+        z-index: 1;
+        transition: inherit;
+      }
+    }
+    .module-progress-prev {
+      padding: 0 10px 0 20px;
+      background: linear-gradient(90deg, #e0e0e0, #e0e0e0);
+      .icon {
+        margin-right: 5px;
       }
     }
     .module-progress-next {
       justify-content: flex-end;
+      background: linear-gradient(270deg, #e0e0e0, #e0e0e0);
+      padding: 0 20px 0 10px;
+      .icon {
+        margin-left: 5px;
+      }
+    }
+    .module-progress-prev:not(.disabled):hover {
+      padding-left: 15px;
+      background: linear-gradient(90deg, #f6f6f6, #e0e0e0);
+      // border: 1px solid @primary-color;
+      .icon {
+        margin-right: 10px;
+      }
+    }
+    .module-progress-next:not(.disabled):hover {
+      background: linear-gradient(270deg, #f6f6f6, #e0e0e0);
+      padding-right: 15px;
+      .icon {
+        margin-left: 10px;
+      }
     }
     .module-progress-prev.disabled,
     .module-progress-next.disabled {
       cursor: not-allowed;
-      color: #cdcdcd;
+      color: #c0c0c0;
       user-select: none;
     }
   }
@@ -296,7 +242,6 @@ const handleNextMenu = () => {
       cursor: pointer;
     }
     li:hover {
-      // background: @primary-color;
       background: lighten(@primary-color, 50%);
     }
     li.active {
@@ -328,51 +273,108 @@ const handleNextMenu = () => {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  .download {
-    font-size: 24px;
-  }
-  .module-file {
-    border: 1px solid @border-color;
-    border-radius: 6px;
-    padding: 0 10px;
-    margin: 20px 0;
-    height: 60px;
+  .module-download-box {
+    border-radius: 12px;
+    // background: @primary-back-color;
+    // box-shadow: 7px 7px 12px #e0e0e0, -7px -7px 12px #ffffff;
     display: flex;
+    justify-content: center;
     align-items: center;
-    width: 480px;
-    .icon {
-      width: 24px;
-      height: 24px;
-      path:nth-child(1) {
-        fill: @primary-color;
+    flex-direction: column;
+    background: @primary-back-color;
+    overflow: hidden;
+    .module-download-box-body {
+      background: @primary-back-color;
+      padding: 20px;
+      box-shadow: 0 0 5px #cdcdcd;
+    }
+    .download {
+      font-size: 24px;
+    }
+    .module-file {
+      // border: 1px solid @border-color;
+      // background: #f6f6f6;
+      // box-shadow: inset 3px 3px 5px #eaeaea, inset -3px -3px 5px #ffffff;
+      border-radius: 6px;
+      padding: 0 10px;
+      margin: 20px 0;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      width: 480px;
+      .icon {
+        width: 24px;
+        height: 24px;
+        path:nth-child(1) {
+          fill: @primary-color;
+        }
+        path:nth-child(2) {
+          fill: darken(@primary-color, 15%);
+        }
       }
-      path:nth-child(2) {
-        fill: darken(@primary-color, 15%);
+      .text {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        font-size: 18px;
+        margin-left: 20px;
+        cursor: pointer;
+        flex: 1;
+      }
+      .text:hover {
+        color: @primary-color;
+        text-decoration: underline;
       }
     }
-    .text {
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      font-size: 18px;
-      margin-left: 20px;
-      cursor: pointer;
-      flex: 1;
+    .module-download-button {
+      border-radius: 21px;
+      height: 42px;
+      margin: 20px;
+      padding: 0 40px;
+      transition: all 0.2s ease-in-out;
+      color: #ffffff;
+      background: @primary-color;
     }
-    .text:hover {
-      color: @primary-color;
-      text-decoration: underline;
+    .module-download-button:hover {
+      color: #ffffff;
+      background: @primary-color;
+      animation: shake3856 0.3s linear infinite both;
     }
-  }
-  .module-download-button {
-    border-radius: 21px;
-    height: 42px;
-    padding: 0 40px;
-    transition: all 0.2s ease-in-out;
-  }
-  .module-download-button:hover {
-    color: #ffffff;
-    background: @primary-color;
+    //     button:hover {
+    //  animation: shake3856 0.3s linear infinite both;
+    // }
+
+    @keyframes shake3856 {
+      0% {
+        -webkit-transform: translate(0);
+        transform: translate(0);
+      }
+
+      20% {
+        -webkit-transform: translate(-2px, 2px);
+        transform: translate(-2px, 2px);
+      }
+
+      40% {
+        -webkit-transform: translate(-2px, -2px);
+        transform: translate(-2px, -2px);
+      }
+
+      60% {
+        -webkit-transform: translate(2px, 2px);
+        transform: translate(2px, 2px);
+      }
+
+      80% {
+        -webkit-transform: translate(2px, -2px);
+        transform: translate(2px, -2px);
+      }
+
+      100% {
+        -webkit-transform: translate(0);
+        transform: translate(0);
+      }
+    }
   }
 }
 </style>

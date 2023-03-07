@@ -25,7 +25,7 @@ const course = {
       menus: [
         {
           title: "数据源与看板制作",
-          introduce: "",
+          introduce: "通过抓取到的数据结果，制作数据看板，方便高效直观地分析数据",
           modules: [
             {
               title: "分省年度统计数据",
@@ -61,7 +61,7 @@ const course = {
         },
         {
           title: "新建项目与读取筛选数据",
-          introduce: "",
+          introduce: "通过抓取到的数据结果，制作数据看板，方便高效直观地分析数据",
           modules: [
             {
               title: "统计指标条件文件",

@@ -6,7 +6,7 @@
       <el-tab-pane label="课程详情" name="introduce"> <div v-html="course.introduce"></div></el-tab-pane>
       <el-tab-pane label="浏览课程" name="browse">
         <div class="module-cards">
-          <div class="card" v-for="(item, index) in course.modules" @click="$router.push('/course/module')">
+          <div class="card jinx-soft-flat" v-for="(item, index) in course.modules" @click="$router.push('/course/module')">
             <div class="header"></div>
             <div class="content">
               <div class="title"><span v-text="item.title"></span></div>
@@ -20,7 +20,7 @@
           <div class="card placeholder"></div>
         </div>
         <div class="experiment-cards">
-          <div class="card" v-for="(item, index) in course.experiments" @click="$router.push('/course/experiment')">
+          <div class="card jinx-soft-flat" v-for="(item, index) in course.experiments" @click="$router.push('/course/experiment')">
             <div class="header"><span v-text="'实验' + (index + 1)"></span></div>
             <div class="content">
               <div class="title"><span v-text="item.title"></span></div>
@@ -87,8 +87,8 @@ const course = test.course;
   padding: 20px;
   padding-bottom: 50px;
   border-radius: 12px;
-  background: @primary-back-color;
-  box-shadow: 5px 5px 12px #eaeaea, -5px -5px 12px #ffffff;
+  // background: @primary-back-color;
+  // box-shadow: 5px 5px 12px #eaeaea, -5px -5px 12px #ffffff;
   position: relative;
   overflow: hidden;
   cursor: pointer;

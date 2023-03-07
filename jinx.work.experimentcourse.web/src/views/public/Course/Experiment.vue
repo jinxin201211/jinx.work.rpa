@@ -14,9 +14,10 @@
           <span class="text" v-text="item.title"></span>
         </div>
       </div>
-      <div class="experiment-module-box" v-for="(menu, index) in experiment.menus" v-show="index === activeMenu">
+      <div class="experiment-module-box jinx-soft-flat" v-for="(menu, index) in experiment.menus" v-show="index === activeMenu">
         <div class="menu-title"><span v-text="menu.title"></span></div>
         <div class="menu-box">
+          <div class="menu-introduce" v-text="menu.introduce"></div>
           <div class="menu-summary">
             <span>概述</span>
             <jinx-icon-svg icon="down" clazz="icon"></jinx-icon-svg>
@@ -43,138 +44,10 @@
 import { useRouter } from "vue-router";
 import JinxLayoutPlain from "../components/JinxLayoutPlain.vue";
 import globalVariable from "../../../javascripts/global.variable";
+import test from "../../../javascripts/test";
 import { ref } from "vue";
 
-const experiment = {
-  title: "国民经济运行监测数字化实验",
-  menus: [
-    {
-      title: "数据源与看板制作",
-      introduce: "",
-      modules: [
-        {
-          title: "分省年度统计数据",
-          resource: "https://rpa.shapanyun.com/web/static/pdf/web/viewer.html?file=/products/经济大数据自动化机器人/教学大纲-经济大数据机器人系统.pdf&page=#1&v=1.0.0.12",
-          type: "zip",
-        },
-        {
-          title: "导入数据与类型调整",
-          resource: "https://rpa.shapanyun.com/web/static/pdf/web/viewer.html?file=/products/经济大数据自动化机器人/教学大纲-经济大数据机器人系统.pdf&page=#1&v=1.0.0.12",
-          type: "pdf",
-        },
-        {
-          title: "制作工作表",
-          resource: "https://rpa.shapanyun.com/web/static/pdf/web/viewer.html?file=/products/经济大数据自动化机器人/教学大纲-经济大数据机器人系统.pdf&page=#1&v=1.0.0.12",
-          type: "pdf",
-        },
-        {
-          title: "制作仪表盘",
-          resource: "https://rpa.shapanyun.com/web/static/pdf/web/viewer.html?file=/products/经济大数据自动化机器人/教学大纲-经济大数据机器人系统.pdf&page=#1&v=1.0.0.12",
-          type: "pdf",
-        },
-        {
-          title: "样式处理",
-          resource: "https://rpa.shapanyun.com/web/static/pdf/web/viewer.html?file=/products/经济大数据自动化机器人/教学大纲-经济大数据机器人系统.pdf&page=#1&v=1.0.0.12",
-          type: "pdf",
-        },
-        {
-          title: "地方经济运行监测看板",
-          resource: "https://rpa.shapanyun.com/web/static/pdf/web/viewer.html?file=/products/经济大数据自动化机器人/教学大纲-经济大数据机器人系统.pdf&page=#1&v=1.0.0.12",
-          type: "code",
-        },
-      ],
-    },
-    {
-      title: "新建项目与读取筛选数据",
-      introduce: "",
-      modules: [
-        {
-          title: "统计指标条件文件",
-          resource: "https://rpa.shapanyun.com/web/static/pdf/web/viewer.html?file=/products/经济大数据自动化机器人/教学大纲-经济大数据机器人系统.pdf&page=#1&v=1.0.0.12",
-          type: "zip",
-        },
-        {
-          title: "新建项目与读取筛选数据",
-          resource: "https://rpa.shapanyun.com/web/static/pdf/web/viewer.html?file=/products/经济大数据自动化机器人/教学大纲-经济大数据机器人系统.pdf&page=#1&v=1.0.0.12",
-          type: "pdf",
-        },
-        {
-          title: "源代码",
-          resource: "https://rpa.shapanyun.com/web/static/pdf/web/viewer.html?file=/products/经济大数据自动化机器人/教学大纲-经济大数据机器人系统.pdf&page=#1&v=1.0.0.12",
-          type: "code",
-        },
-      ],
-    },
-    {
-      title: "数据搜索",
-      introduce: "",
-      modules: [
-        {
-          title: "基础源代码",
-          resource: "https://rpa.shapanyun.com/web/static/pdf/web/viewer.html?file=/products/经济大数据自动化机器人/教学大纲-经济大数据机器人系统.pdf&page=#1&v=1.0.0.12",
-          type: "zip",
-        },
-        {
-          title: "打开浏览器进入搜索界面",
-          resource: "https://rpa.shapanyun.com/web/static/pdf/web/viewer.html?file=/products/经济大数据自动化机器人/教学大纲-经济大数据机器人系统.pdf&page=#1&v=1.0.0.12",
-          type: "pdf",
-        },
-        {
-          title: "数据搜索",
-          resource: "https://rpa.shapanyun.com/web/static/pdf/web/viewer.html?file=/products/经济大数据自动化机器人/教学大纲-经济大数据机器人系统.pdf&page=#1&v=1.0.0.12",
-          type: "pdf",
-        },
-        {
-          title: "修改结果数据查看维度",
-          resource: "https://rpa.shapanyun.com/web/static/pdf/web/viewer.html?file=/products/经济大数据自动化机器人/教学大纲-经济大数据机器人系统.pdf&page=#1&v=1.0.0.12",
-          type: "pdf",
-        },
-      ],
-    },
-    {
-      title: "数据抓取",
-      introduce: "",
-      modules: [
-        {
-          title: "基础源代码",
-          resource: "https://rpa.shapanyun.com/web/static/pdf/web/viewer.html?file=/products/经济大数据自动化机器人/教学大纲-经济大数据机器人系统.pdf&page=#1&v=1.0.0.12",
-          type: "zip",
-        },
-        {
-          title: "按照年份抓取数据",
-          resource: "https://rpa.shapanyun.com/web/static/pdf/web/viewer.html?file=/products/经济大数据自动化机器人/教学大纲-经济大数据机器人系统.pdf&page=#1&v=1.0.0.12",
-          type: "pdf",
-        },
-      ],
-    },
-    {
-      title: "保存数据并打开看板",
-      introduce: "",
-      modules: [
-        {
-          title: "基础源代码",
-          resource: "https://rpa.shapanyun.com/web/static/pdf/web/viewer.html?file=/products/经济大数据自动化机器人/教学大纲-经济大数据机器人系统.pdf&page=#1&v=1.0.0.12",
-          type: "zip",
-        },
-        {
-          title: "保存数据",
-          resource: "https://rpa.shapanyun.com/web/static/pdf/web/viewer.html?file=/products/经济大数据自动化机器人/教学大纲-经济大数据机器人系统.pdf&page=#1&v=1.0.0.12",
-          type: "pdf",
-        },
-        {
-          title: "打开看板模板",
-          resource: "https://rpa.shapanyun.com/web/static/pdf/web/viewer.html?file=/products/经济大数据自动化机器人/教学大纲-经济大数据机器人系统.pdf&page=#1&v=1.0.0.12",
-          type: "pdf",
-        },
-        {
-          title: "完整源代码",
-          resource: "https://rpa.shapanyun.com/web/static/pdf/web/viewer.html?file=/products/经济大数据自动化机器人/教学大纲-经济大数据机器人系统.pdf&page=#1&v=1.0.0.12",
-          type: "code",
-        },
-      ],
-    },
-  ],
-};
+const experiment = test.course.experiments[0];
 
 const activeMenu = ref(0);
 
@@ -270,15 +143,15 @@ const handleViewModule = () => {
 
 .experiment-module-box {
   border-radius: 12px;
-  background: @primary-back-color;
-  box-shadow: 7px 7px 12px #e0e0e0, -7px -7px 12px #ffffff;
+  // background: @primary-back-color;
+  // box-shadow: 7px 7px 12px #e0e0e0, -7px -7px 12px #ffffff;
   padding: 20px;
   padding-bottom: 40px;
   overflow: hidden;
   position: relative;
   .menu-title {
     font-size: 14px;
-    margin-top: 0;
+    margin: 0;
     background: @primary-color;
     color: #f1f1f1;
     padding: 7px 22px;
@@ -287,10 +160,18 @@ const handleViewModule = () => {
   }
   .menu-box {
     padding-left: 2em;
+    .menu-introduce {
+      margin-top: 20px;
+      text-indent: 20px;
+      line-height: 30px;
+      font-size: 14px;
+      color: #969696;
+    }
     .menu-summary {
       display: flex;
       justify-content: flex-start;
       align-items: center;
+      margin-top: 20px;
       margin-bottom: 20px;
       .icon {
         width: 14px;
