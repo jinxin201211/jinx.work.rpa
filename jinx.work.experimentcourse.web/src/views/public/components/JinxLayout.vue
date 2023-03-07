@@ -53,6 +53,20 @@ const props = defineProps({
       flex: 1;
       overflow-y: auto;
     }
+    .jinx-layout-body::-webkit-scrollbar {
+      width: 5px;
+    }
+    .jinx-layout-body::-webkit-scrollbar-thumb {
+      border-radius: 10px;
+      -webkit-box-shadow: inset 0 0 5px rgba(255, 255, 255, 0.2);
+      opacity: 0.2;
+      background: rgba(0, 0, 0, 0.2);
+    }
+    .jinx-layout-body::-webkit-scrollbar-track {
+      -webkit-box-shadow: inset 0 0 5px rgba(255, 255, 255, 0.2);
+      border-radius: 0;
+      background: rgba(0, 0, 0, 0.1);
+    }
   }
 }
 

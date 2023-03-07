@@ -71,6 +71,16 @@ const routes = [
     },
   },
   {
+    path: "/usercourse",
+    name: "UserCourse",
+    component: () => import("../views/public/Course/User.vue"),
+    meta: {
+      keepAlive: true,
+      menu: "course",
+      title: "我的课程",
+    },
+  },
+  {
     path: "/class",
     name: "Class",
     component: () => import("../views/public/Class/Index.vue"),

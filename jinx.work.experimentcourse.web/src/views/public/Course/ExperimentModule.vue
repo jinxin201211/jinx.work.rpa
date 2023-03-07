@@ -334,46 +334,36 @@ const handleViewWork = () => {
       transition: all 0.2s ease-in-out;
       color: #ffffff;
       background: @primary-color;
+      position: relative;
+      overflow: hidden;
     }
-    .module-download-button:hover {
-      color: #ffffff;
-      background: @primary-color;
-      animation: shake3856 0.3s linear infinite both;
+    .module-download-button::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      border-radius: 21px;
+      transition: all 0.2s ease-in;
+      background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.2));
     }
-    //     button:hover {
-    //  animation: shake3856 0.3s linear infinite both;
-    // }
-
-    @keyframes shake3856 {
-      0% {
-        -webkit-transform: translate(0);
-        transform: translate(0);
-      }
-
-      20% {
-        -webkit-transform: translate(-2px, 2px);
-        transform: translate(-2px, 2px);
-      }
-
-      40% {
-        -webkit-transform: translate(-2px, -2px);
-        transform: translate(-2px, -2px);
-      }
-
-      60% {
-        -webkit-transform: translate(2px, 2px);
-        transform: translate(2px, 2px);
-      }
-
-      80% {
-        -webkit-transform: translate(2px, -2px);
-        transform: translate(2px, -2px);
-      }
-
-      100% {
-        -webkit-transform: translate(0);
-        transform: translate(0);
-      }
+    .module-download-button:hover::before {
+      left: 0;
+    }
+    .module-download-button::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      border-radius: 21px;
+      transition: all 0.2s ease-in 0.2s;
+      background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.2));
+    }
+    .module-download-button:hover::after {
+      left: 0;
     }
   }
 }
