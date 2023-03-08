@@ -92,5 +92,8 @@ const handleViewCourse = () => {
       margin: 0 20px;
     }
   }
+  .course-card:last-child {
+    margin-bottom: 0;
+  }
 }
 </style>
