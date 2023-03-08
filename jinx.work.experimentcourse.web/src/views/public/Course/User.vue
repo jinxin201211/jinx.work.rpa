@@ -1,7 +1,10 @@
 <template>
   <jinx-layout>
+    <template #sidebar>
+      <jinx-sidebar-menu></jinx-sidebar-menu>
+    </template>
     <div style="padding: 20px">
-      <div class="course-title">我的课程</div>
+      <div class="course-title jinx-title">我的课程</div>
       <div class="course-box" style="width: 100%">
         <div class="course-card jinx-soft-flat" v-for="(item, index) in listUserCourse">
           <img :src="item.img" v-if="item.img" />
@@ -20,6 +23,7 @@
 <script setup>
 import { useRouter } from "vue-router";
 import JinxLayout from "../components/JinxLayout.vue";
+import JinxSidebarMenu from "../components/JinxSidebarMenu.vue";
 import defaultCourse from "@/assets/image-text.png";
 
 const listUserCourse = [
@@ -69,8 +73,6 @@ const handleViewCourse = () => {
 
 <style lang="less" scoped>
 .course-title {
-  font-size: 24px;
-  font-weight: 600;
   margin: 0 0 20px 0;
 }
 .course-box {
