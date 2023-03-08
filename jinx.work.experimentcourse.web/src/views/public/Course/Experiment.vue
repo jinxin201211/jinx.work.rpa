@@ -1,6 +1,6 @@
 <template>
   <jinx-layout-plain>
-    <div class="experiment-title"><span v-text="experiment.title"></span></div>
+    <div class="experiment-title jinx-title"><span v-text="experiment.title"></span></div>
     <div class="experiment-box">
       <div class="experiment-help">
         <el-link @click="handleHelpClick('/resources/机器人设计常见问题指南.pdf')">机器人设计常见问题指南</el-link>
@@ -78,10 +78,7 @@ const handleViewModule = () => {
 </script>
 
 <style lang="less" scoped>
-.experiment-title,
-.menu-title {
-  font-size: 24px;
-  font-weight: 600;
+.experiment-title {
   margin: 20px 0;
 }
 

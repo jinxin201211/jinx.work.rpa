@@ -1,6 +1,6 @@
 <template>
   <jinx-layout-plain>
-    <div class="course-title"><span v-text="course.title"></span></div>
+    <div class="course-title jinx-title"><span v-text="course.title"></span></div>
 
     <el-tabs v-model="activeTab" @tab-click="handleClick">
       <el-tab-pane label="课程详情" name="introduce"> <div v-html="course.introduce"></div></el-tab-pane>
@@ -53,8 +53,6 @@ const course = test.course;
 
 <style lang="less" scoped>
 .course-title {
-  font-size: 24px;
-  font-weight: 600;
   margin: 20px 0;
 }
 
