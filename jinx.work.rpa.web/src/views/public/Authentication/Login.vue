@@ -91,12 +91,14 @@ const handleInputEnd = () => {
     background: rgba(224, 224, 224, 0.95);
     border-radius: 6px;
     box-shadow: 0 0 6px #e0e0e0;
+
     .login-title {
       font-size: 24px;
       margin-bottom: 20px;
       font-weight: 800;
       color: @primary-color;
     }
+
     .login-form-input {
       background: rgba(255, 255, 255, 0.5);
       border-radius: 20px;
@@ -110,11 +112,13 @@ const handleInputEnd = () => {
       background: #e0e0e0;
       box-shadow: inset 3px 3px 8px #d0d0d0, inset -3px -3px 8px #f0f0f0;
       position: relative;
+
       .icon {
         height: 16px;
         width: 16px;
         margin-right: 8px;
       }
+
       input {
         width: 100%;
         height: 100%;
@@ -125,6 +129,7 @@ const handleInputEnd = () => {
         color: #090909;
         outline: none;
       }
+
       .login-error-message {
         position: absolute;
         bottom: -24px;
@@ -133,24 +138,30 @@ const handleInputEnd = () => {
         display: none;
       }
     }
+
     .login-form-input.invalid {
       border: 1px solid @error-color;
+
       .login-error-message {
         display: initial;
       }
     }
+
     .login-forgot {
       display: flex;
       justify-content: flex-end;
       margin: 20px 0;
       width: 300px;
+
       :deep(.el-link) {
         color: #090909;
       }
+
       :deep(.el-link:hover) {
         color: @primary-color;
       }
     }
+
     .login-form-button {
       border-radius: 20px;
       height: 45px;
@@ -173,10 +184,12 @@ const handleInputEnd = () => {
       border: 1px solid #e8e8e8;
       box-shadow: 6px 6px 12px #c5c5c5, -6px -6px 12px #ffffff;
     }
+
     .login-form-button:active {
       color: #666;
       box-shadow: inset 4px 4px 12px #c5c5c5, inset -4px -4px 12px #ffffff;
     }
+
     .login-form-button:before {
       content: "";
       position: absolute;
@@ -191,6 +204,7 @@ const handleInputEnd = () => {
       transition: all 0.5s 0.1s cubic-bezier(0.55, 0, 0.1, 1);
       z-index: -1;
     }
+
     .login-form-button:after {
       content: "";
       position: absolute;
@@ -205,20 +219,24 @@ const handleInputEnd = () => {
       transition: all 0.5s 0.1s cubic-bezier(0.55, 0, 0.1, 1);
       z-index: -1;
     }
+
     .login-form-button:hover {
       color: #ffffff;
       border: 1px solid @primary-color;
     }
+
     .login-form-button:hover:before {
       top: -35%;
       background-color: @primary-color;
       transform: translateX(-50%) scaleY(1.3) scaleX(0.8);
     }
+
     .login-form-button:hover:after {
       top: -45%;
       background-color: @primary-color;
       transform: translateX(-50%) scaleY(1.3) scaleX(0.8);
     }
+
     .login-time {
       font-size: 14px;
       color: #090909;

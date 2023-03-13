@@ -17,6 +17,15 @@ const routes = [
     },
   },
   {
+    path: "/resetpassword",
+    name: "ResetPassword",
+    component: () => import("../views/public/Authentication/ResetPassword.vue"),
+    meta: {
+      keepAlive: true,
+      title: "重置密码",
+    },
+  },
+  {
     path: "/home",
     name: "Home",
     component: () => import("../views/public/Home.vue"),
@@ -81,9 +90,9 @@ const routes = [
     },
   },
   {
-    path: "/class",
-    name: "Class",
-    component: () => import("../views/public/Class/Index.vue"),
+    path: "/userclass",
+    name: "UserClass",
+    component: () => import("../views/public/Class/User.vue"),
     meta: {
       keepAlive: true,
       menu: "class",
