@@ -1,11 +1,11 @@
 <template>
   <div class="jinx-navbar">
     <div class="jinx-navbar-menu">
-      <ul class="jinx-menu" style="flex: 1">
+      <ul class="jinx-menu">
         <li class="jinx-menu-item" :class="{ hover: hover === 'courselist' }" @click="$router.push('/courselist')">
           <span>课程</span>
         </li>
-        <li class="jinx-menu-item" :class="{ hover: hover === 'class' }" @click="$router.push('/class')">
+        <li class="jinx-menu-item" :class="{ hover: hover === 'userclass' }" @click="$router.push('/userclass')">
           <span>我的班级</span>
         </li>
         <li class="jinx-menu-item" :class="{ hover: hover === 'helpcenter' }" @click="$router.push('/helpcenter')">
@@ -30,6 +30,7 @@
 <script setup>
 import { useRouter, useRoute } from "vue-router";
 import { getCurrentInstance, onMounted, reactive, ref } from "vue";
+
 const $router = useRouter();
 const $route = useRoute();
 const { proxy } = getCurrentInstance();
@@ -38,10 +39,11 @@ let hover = ref($route.meta.menu);
 
 onMounted(() => {
   refresh();
-  hover = ref($route.meta.menu);
+  hover.value = $route.meta.menu;
 });
 
-const refresh = () => {};
+const refresh = () => {
+};
 </script>
 
 <style lang="less" scoped>
@@ -74,6 +76,7 @@ const refresh = () => {};
       list-style: none;
       height: 60px;
       line-height: 60px;
+      flex: 1;
       // text-align: right;
 
       .jinx-menu-item {
@@ -115,6 +118,7 @@ const refresh = () => {};
           color: @primary-color;
         }
       }
+
       .jinx-menu-item:hover:after {
         visibility: visible;
         opacity: 1;

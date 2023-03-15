@@ -5,7 +5,7 @@ import global from "../javascripts/global.variable";
 const routes = [
   {
     path: "/",
-    redirect: "usercourse",
+    redirect: "courselist",
   },
   {
     path: "/login",

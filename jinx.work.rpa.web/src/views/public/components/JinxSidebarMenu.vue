@@ -4,8 +4,12 @@
     <div class="sidebar-menu">
       <div class="title">学习</div>
       <ul class="menu">
-        <li class="menu-item" :class="{ active: routename === 'UserCourse' }" @click="handleMenuClick('UserCourse')">我的课程</li>
-        <li class="menu-item" :class="{ active: routename === 'UserClass' }" @click="handleMenuClick('UserClass')">我的班级</li>
+        <li class="menu-item" :class="{ active: routename === 'UserCourse' }" @click="handleMenuClick('UserCourse')">
+          我的课程
+        </li>
+        <li class="menu-item" :class="{ active: routename === 'UserClass' }" @click="handleMenuClick('UserClass')">
+          我的班级
+        </li>
       </ul>
     </div>
     <div class="sidebar-menu">
@@ -45,7 +49,7 @@ const handleMenuClick = (rn) => {
 
 <style lang="less" scoped>
 .jinx-sidebar-menu {
-  padding: 20px;
+  padding: 20px 20px 20px 0;
 
   .sidebar-menu-title {
     margin-bottom: 20px;

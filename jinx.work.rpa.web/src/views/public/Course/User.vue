@@ -11,17 +11,33 @@
           <img :src="defaultCourse" v-else />
           <span class="text" v-text="item.name"></span>
           <div class="button">
-            <el-button type="primary" plain>创建班级</el-button>
+            <el-button type="primary" plain @click="handleShowClassForm">创建班级</el-button>
             <el-button type="primary" plain @click="handleViewCourse">查看课程</el-button>
           </div>
         </div>
       </div>
+
+      <el-dialog title="创建班级" v-model="classFormVisible">
+        <el-form :model="classForm">
+          <el-form-item label="班级名称" :label-width="120">
+            <el-input v-model="classForm.name" autocomplete="off"></el-input>
+          </el-form-item>
+        </el-form>
+        <template #footer>
+          <div class="dialog-footer">
+            <el-button @click="classFormVisible = false">取 消</el-button>
+            <el-button type="primary" @click="handleSubmitClassForm">确 定</el-button>
+          </div>
+        </template>
+      </el-dialog>
     </div>
   </jinx-layout>
 </template>
 
 <script setup>
 import { useRouter } from "vue-router";
+import { reactive, ref } from "vue";
+import { ElMessage } from "element-plus";
 import JinxLayout from "../components/JinxLayout.vue";
 import JinxSidebarMenu from "../components/JinxSidebarMenu.vue";
 import defaultCourse from "@/assets/image-text.png";
@@ -29,45 +45,67 @@ import defaultCourse from "@/assets/image-text.png";
 const listUserCourse = [
   {
     name: "2023年经济金融大数据师资培训会-金融大数据",
-    img: "https://rpa.shapanyun.com/products/%E9%87%91%E8%9E%8D%E5%A4%A7%E6%95%B0%E6%8D%AE%E8%87%AA%E5%8A%A8%E5%8C%96%E6%9C%BA%E5%99%A8%E4%BA%BA/cover/cover.jpg",
+    img: "https://rpa.shapanyun.com/products/%E9%87%91%E8%9E%8D%E5%A4%A7%E6%95%B0%E6%8D%AE%E8%87%AA%E5%8A%A8%E5%8C%96%E6%9C%BA%E5%99%A8%E4%BA%BA/cover/cover.jpg"
   },
   {
     name: "2023年新商科师资培训-电商与营销主题",
-    img: "",
+    img: ""
   },
   {
     name: "2023年新商科师资培训-物流类主题",
-    img: "https://rpa.shapanyun.com/products/%E9%87%91%E8%9E%8D%E5%A4%A7%E6%95%B0%E6%8D%AE%E8%87%AA%E5%8A%A8%E5%8C%96%E6%9C%BA%E5%99%A8%E4%BA%BA/cover/cover.jpg",
+    img: "https://rpa.shapanyun.com/products/%E9%87%91%E8%9E%8D%E5%A4%A7%E6%95%B0%E6%8D%AE%E8%87%AA%E5%8A%A8%E5%8C%96%E6%9C%BA%E5%99%A8%E4%BA%BA/cover/cover.jpg"
   },
   {
     name: "金融大数据自动化机器人1.0",
-    img: "https://rpa.shapanyun.com/products/%E9%87%91%E8%9E%8D%E5%A4%A7%E6%95%B0%E6%8D%AE%E8%87%AA%E5%8A%A8%E5%8C%96%E6%9C%BA%E5%99%A8%E4%BA%BA/cover/cover.jpg",
+    img: "https://rpa.shapanyun.com/products/%E9%87%91%E8%9E%8D%E5%A4%A7%E6%95%B0%E6%8D%AE%E8%87%AA%E5%8A%A8%E5%8C%96%E6%9C%BA%E5%99%A8%E4%BA%BA/cover/cover.jpg"
   },
   {
     name: "金融大数据自动化机器人1.0",
-    img: "https://rpa.shapanyun.com/products/%E9%87%91%E8%9E%8D%E5%A4%A7%E6%95%B0%E6%8D%AE%E8%87%AA%E5%8A%A8%E5%8C%96%E6%9C%BA%E5%99%A8%E4%BA%BA/cover/cover.jpg",
+    img: "https://rpa.shapanyun.com/products/%E9%87%91%E8%9E%8D%E5%A4%A7%E6%95%B0%E6%8D%AE%E8%87%AA%E5%8A%A8%E5%8C%96%E6%9C%BA%E5%99%A8%E4%BA%BA/cover/cover.jpg"
   },
   {
     name: "经济大数据自动化机器人1.0",
-    img: "https://rpa.shapanyun.com/products/%E9%87%91%E8%9E%8D%E5%A4%A7%E6%95%B0%E6%8D%AE%E8%87%AA%E5%8A%A8%E5%8C%96%E6%9C%BA%E5%99%A8%E4%BA%BA/cover/cover.jpg",
+    img: "https://rpa.shapanyun.com/products/%E9%87%91%E8%9E%8D%E5%A4%A7%E6%95%B0%E6%8D%AE%E8%87%AA%E5%8A%A8%E5%8C%96%E6%9C%BA%E5%99%A8%E4%BA%BA/cover/cover.jpg"
   },
   {
     name: "经济大数据自动化机器人1.0",
-    img: "https://rpa.shapanyun.com/products/%E9%87%91%E8%9E%8D%E5%A4%A7%E6%95%B0%E6%8D%AE%E8%87%AA%E5%8A%A8%E5%8C%96%E6%9C%BA%E5%99%A8%E4%BA%BA/cover/cover.jpg",
+    img: "https://rpa.shapanyun.com/products/%E9%87%91%E8%9E%8D%E5%A4%A7%E6%95%B0%E6%8D%AE%E8%87%AA%E5%8A%A8%E5%8C%96%E6%9C%BA%E5%99%A8%E4%BA%BA/cover/cover.jpg"
   },
   {
     name: "经济大数据自动化机器人1.0",
-    img: "https://rpa.shapanyun.com/products/%E9%87%91%E8%9E%8D%E5%A4%A7%E6%95%B0%E6%8D%AE%E8%87%AA%E5%8A%A8%E5%8C%96%E6%9C%BA%E5%99%A8%E4%BA%BA/cover/cover.jpg",
+    img: "https://rpa.shapanyun.com/products/%E9%87%91%E8%9E%8D%E5%A4%A7%E6%95%B0%E6%8D%AE%E8%87%AA%E5%8A%A8%E5%8C%96%E6%9C%BA%E5%99%A8%E4%BA%BA/cover/cover.jpg"
   },
   {
     name: "经济大数据自动化机器人1.0",
-    img: "https://rpa.shapanyun.com/products/%E9%87%91%E8%9E%8D%E5%A4%A7%E6%95%B0%E6%8D%AE%E8%87%AA%E5%8A%A8%E5%8C%96%E6%9C%BA%E5%99%A8%E4%BA%BA/cover/cover.jpg",
-  },
+    img: "https://rpa.shapanyun.com/products/%E9%87%91%E8%9E%8D%E5%A4%A7%E6%95%B0%E6%8D%AE%E8%87%AA%E5%8A%A8%E5%8C%96%E6%9C%BA%E5%99%A8%E4%BA%BA/cover/cover.jpg"
+  }
 ];
 
 const $router = useRouter();
 const handleViewCourse = () => {
   $router.push("/course");
+};
+
+ElMessage.success({
+  message: "创建成功",
+  type: "success",
+  duration: 0
+});
+
+const handleShowClassForm = () => {
+  classFormVisible.value = true;
+};
+let classFormVisible = ref(false);
+let classForm = reactive({
+  name: ""
+});
+const handleSubmitClassForm = () => {
+  ElMessage.success({
+    message: "创建成功",
+    type: "success",
+    duration: 0
+  });
+  classFormVisible.value = false;
 };
 </script>
 
@@ -75,6 +113,7 @@ const handleViewCourse = () => {
 .course-title {
   margin: 0 0 20px 0;
 }
+
 .course-box {
   width: 100%;
 
@@ -85,15 +124,18 @@ const handleViewCourse = () => {
     display: flex;
     align-items: center;
     border-radius: 6px;
+
     img {
       height: 60px;
       width: 60px;
     }
+
     .text {
       flex: 1;
       margin: 0 20px;
     }
   }
+
   .course-card:last-child {
     margin-bottom: 0;
   }
